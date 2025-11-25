@@ -7,4 +7,8 @@ const rutaArchivoDinamic = function (nameFile) {
   return mypath;
 };
 
-module.exports = { rutaArchivoDinamic };
+module.exports = {
+  rutaArchivoDinamic,
+  paths: {
+    view: path.join(__dirname, "..", "views") 
+  }};
