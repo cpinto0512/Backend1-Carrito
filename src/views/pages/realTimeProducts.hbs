@@ -1,0 +1,22 @@
+{{> navbar}}
+<div class="container mt-5">
+    <h1>REAL TIME PRODUCTS</h1>
+
+    <h2>Productos disponibles</h2>
+    <div class="row" id="products-container">
+        {{#each products}}
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{name}}</h5>
+                    <p class="card-text">Precio: ${{price}}</p>
+                </div>
+            </div>
+        </div>
+        
+        {{else}}
+        <p>No hay productos disponibles en este momento.</p>
+        {{/each}}
+    </div>
+        <button id="btnAgregarProductos" class="button">Agregar productos</button>
+</div>

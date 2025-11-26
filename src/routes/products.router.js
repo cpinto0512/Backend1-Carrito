@@ -48,7 +48,7 @@ router.post("/", async (req, res) => {
       price,
     };
     const products = await getProducts();
-
+    
     products.push(newProduct);
     const pathProducts = rutaArchivoDinamic("products.json");
     await fs.writeFile(
