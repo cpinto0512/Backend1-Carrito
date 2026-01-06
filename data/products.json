@@ -1,67 +1,44 @@
 [
   {
-    "id": "101",
-    "name": "Almendras activadas 130g",
+    "productName": "Almendras activadas",
+    "productSize": "130",
+    "UM": "g",
     "price": 7
   },
   {
-    "id": "102",
-    "name": "Cashews activados 130g",
+    "productName": "Cashews activados",
+    "productSize": "130",
+    "UM": "g",
     "price": 7
   },
   {
-    "id": "103",
-    "name": "Castañas activadas 130g",
+    "productName": "Castañas activadas",
+    "productSize": "130",
+    "UM": "g",
     "price": 8
   },
   {
-    "id": "104",
-    "name": "Pecanas activadas 100g",
+    "productName": "Pecanas activadas",
+    "productSize": "100",
+    "UM": "g",
     "price": 7
   },
   {
-    "id": "105",
-    "name": "Pistachos activados 100g",
+    "productName": "Pistachos activados",
+    "productSize": "100",
+    "UM": "g",
     "price": 10
   },
   {
-    "id": "21658e19-5ff5-43bb-a700-aec2b2679ba7",
-    "name": "Producto Test1",
-    "price": "10"
+    "productName": "Pecanas activadas",
+    "productSize": "150",
+    "UM": "g",
+    "price": 10.5
   },
   {
-    "id": "c8fcdf09-5091-4e5a-907f-9d823299d1c3",
-    "name": "Producto Test4",
-    "price": "100"
-  },
-  {
-    "id": "cb721318-3f90-4605-ac46-7e7d78816317",
-    "name": "Producto Test3",
-    "price": "10"
-  },
-  {
-    "id": "5f182190-9174-4553-acc5-51ce91fb64eb",
-    "name": "Producto Test3",
-    "price": "20"
-  },
-  {
-    "id": "2758fd80-b27f-421a-9e8a-4417319fca9d",
-    "name": "Producto Test2",
-    "price": "100"
-  },
-  {
-    "id": "ce99c817-4e5c-4188-8ecf-d4ae0731ff4f",
-    "name": "Producto Test4",
-    "price": "20"
-  },
-  {
-    "id": "1c1c0041-d7b8-4cfd-8027-fb455b912216",
-    "name": "Producto Test4",
-    "price": "100"
-  },
-  {
-    "id": "68178bc8-3824-4df6-a141-21d12e6ad78c",
-    "name": "Producto Test5",
-    "price": "10"
+    "productName": "Pistachos activados",
+    "productSize": "150",
+    "UM": "g",
+    "price": 15
   }
 ]

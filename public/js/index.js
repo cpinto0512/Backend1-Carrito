@@ -5,19 +5,22 @@ const productsContainer = document.getElementById("products-container")
 let products = [];
 
 const getProducts = async () => {
-    try {
-        const productosJson = await fetch("/api/products");
-        const products = await productosJson.json();
-        return products;
-    } catch (error) {
-        console.error("Error al obtener productos:", error);
-        return [];
-    }
+  try {
+    const response = await fetch("/api/products");
+    const products = await response.json();
+    console.log("productos recibidos del servidor",products);
+    return products;
+  } catch (error) {
+    console.error("Error al obtener productos:", error);
+    return [];
+  }
 };
 
-const addProduct = async (name, price) => {
+const addProduct = async (productName,productSize,UM, price) => {
     const newProduct = {
-        name,
+        productName,
+        productSize,
+        UM,
         price,
     };
 
@@ -41,21 +44,21 @@ const addProduct = async (name, price) => {
     }
 };
 
-const actualizarProductsContainer = (products)=>{
-    products.forEach((product) => {
-      const productHTML = `
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">${product.name}</h5>
-              <p class="card-text">Precio: $${product.price}</p>
-            </div>
+const actualizarProductsContainer = (products) => {
+  products.forEach((product) => {
+    const productHTML = `
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">${product.productName}</h5>
+            <p class="card-text">Precio: $${product.price}</p>
           </div>
         </div>
-      `;
-      productsContainer.insertAdjacentHTML('beforeend', productHTML);
-    });
-  }
+      </div>
+    `;
+    productsContainer.insertAdjacentHTML('beforeend', productHTML);
+  });
+};
 
 btnAgregarProductos.addEventListener("click", (e) => {
     e.preventDefault();
@@ -70,8 +73,28 @@ btnAgregarProductos.addEventListener("click", (e) => {
     swalWithBootstrapButtons.fire({
         title: "Añadir productos",
         html: `
-        <input type="text" id="swal-input-name" class="swal2-input" placeholder="Nombre">
-        <input type="text" id="swal-input-price" class="swal2-input" placeholder="Precio">
+        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 400px; width: 100%;">
+
+      <!-- Primera fila: Nombre -->
+      <div style="max-width: 100%;">
+        <input type="text" id="swal-input-name" class="swal2-input" placeholder="Nombre" style="width: 100%; box-sizing: border-box;" />
+      </div>
+      
+      <!-- Segunda fila: Tamaño en gramos y Desplegable (alineados) -->
+      <div style="display: flex; gap: 10px; width: 100%; align-items: center;">
+        <input type="text" id="swal-input-size" class="swal2-input" placeholder="Tamaño del producto" style="flex: 1; padding: 5px; box-sizing: border-box;" />
+        <select id="swal-select-unit" class="swal2-input" style="flex: 1; height: 40px; padding: 5px 10px; box-sizing: border-box; border: 1px solid #dcdcdc; border-radius: 5px;">
+          <option value="g">g</option>
+          <option value="kg">kg</option>
+        </select>
+      </div>
+
+      <!-- Tercera fila: Precio -->
+      <div style="max-width: 100%;">
+        <input type="text" id="swal-input-price" class="swal2-input" placeholder="Precio" style="width: 100%; box-sizing: border-box;" />
+      </div>
+
+    </div>
       `,
         showCancelButton: true,
         confirmButtonText: "Yes, add it!",
@@ -80,6 +103,8 @@ btnAgregarProductos.addEventListener("click", (e) => {
     }).then((result) => {
         if (result.isConfirmed) {
             const name = document.getElementById('swal-input-name').value;
+            const size = document.getElementById('swal-input-size').value;
+            const unit = document.getElementById('swal-select-unit').value;
             const price = document.getElementById('swal-input-price').value;
 
             /* Validación de los datos
@@ -90,13 +115,13 @@ btnAgregarProductos.addEventListener("click", (e) => {
                     icon: "error",
                 });
             } else {*/
-                addProduct(name, price);
-                swalWithBootstrapButtons.fire({
-                    title: "Added!",
-                    text: `El producto "${name}" fue añadido con éxito. Precio: S/${price}`,
-                    icon: "success",
-                });
-                socket.emit("nuevoProducto", { name, price });
+            addProduct(name,size, unit, price);
+            swalWithBootstrapButtons.fire({
+                title: "Added!",
+                text: `El producto "${name} ${size}${unit}" fue añadido con éxito. Precio: S/${price}`,
+                icon: "success",
+            });
+            socket.emit("nuevoProducto", { name, price });
             //}
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             // Si el usuario cancela
@@ -110,8 +135,9 @@ btnAgregarProductos.addEventListener("click", (e) => {
 })
 
 socket.on("productoAgregado", async (data) => {
-  if (data.success) {
-    const products = await getProducts();    
-    productsContainer.innerHTML = "";
-    actualizarProductsContainer(products)
-}});
+    if (data.success) {
+        const products = await getProducts();
+        productsContainer.innerHTML = "";
+        actualizarProductsContainer(products)
+    }
+});
