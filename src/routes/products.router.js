@@ -1,11 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { rutaArchivoDinamic } = require("../../config/config");
-const fs = require("fs").promises;
-const { v4: uuidv4 } = require("uuid");
 
 const Product = require("../models/product.model");
-const mongoose = require("mongoose")
 
 const getProducts = async () => {
   return await Product.find({})
